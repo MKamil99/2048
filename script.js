@@ -1,16 +1,12 @@
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
-var sizeInput = document.getElementById('size');
-var changeSize = document.getElementById('change-size');
 var scoreLabel = document.getElementById('score');
 var score = 0;
-var size = 4;
+let size =  document.getElementById('size').textContent;
 var width = (canvas.width / size) - size;
 var cells = [];
 var fontSize;
 canvas.height = canvas.width;
-
-console.log("kanwa ma"+canvas.width)
 startGame();
 
 
@@ -65,7 +61,26 @@ startGame();
       }
     }
   }
-
+  function canvasClean() {
+    context.clearRect(0, 0, canvas.height, canvas.height);
+  }
   function startGame() {
+    canvasClean()
+    width = (canvas.width / size) - size;
+    cells = []
     createCells();
     drawAllCells();}
+
+  function lessCells(){
+      if(parseInt(document.getElementById('size').textContent) > 4){
+      document.getElementById('size').textContent =  parseInt(document.getElementById('size').textContent) - 1
+      size = parseInt(document.getElementById('size').textContent)
+      startGame();}
+      
+  }
+  function moreCells(){
+    if(parseInt(document.getElementById('size').textContent) < 7){
+    document.getElementById('size').textContent =  parseInt(document.getElementById('size').textContent) + 1
+      size = parseInt(document.getElementById('size').textContent)
+      startGame();}
+}
