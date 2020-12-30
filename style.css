@@ -77,11 +77,11 @@ h3 {
     display: flex;
     align-content: center;
     justify-content: center;
-    margin-top: 10px;
+    padding: 4%
 }
 #canvas{
     display: flex;
-    width:90%;
+    width:100%;
 }
 @media (orientation: landscape){
     .play{

@@ -2,8 +2,8 @@ var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 var scoreLabel = document.getElementById('score');
 var score = 0;
-let size =  document.getElementById('size').textContent;
-var width = (canvas.width / size) - size;
+var size =  document.getElementById('size').textContent;
+var width = (canvas.width / size);
 var cells = [];
 var fontSize;
 canvas.height = canvas.width;
@@ -66,7 +66,7 @@ startGame();
   }
   function startGame() {
     canvasClean()
-    width = (canvas.width / size) - size;
+    width = (canvas.width / size);
     cells = []
     createCells();
     drawAllCells();}
