@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" >
+<html lang="pl">
 
 <head>
     <meta charset="UTF-8">
@@ -12,26 +12,24 @@
 </head>
 
 <body>
-<div class="play">
-<div class="info">
-<h2>2048</h2>
-
-<section class="score-section">
-        <h3>Wynik:</h3>
-        <div class="score-value" id="score">0</div>
-</section>
-    
-<section class="size-section">
-    <h3>Rozmiar:</h3>
-    <button class="size-btn" onclick="lessCells()">-</button>
-    <div class=size-value id="size">4</div>
-    <button class="size-btn"  onclick="moreCells()">+</button>    
-</section>
-</div>
-    <div class=canvas-section>
-        <canvas id="canvas" ></canvas>
-    </div>
-      <script src="script.js" ></script>
+    <div class="play">
+        <div class="info">
+            <h2>2048</h2>
+            <section class="score-section">
+                <h3>Wynik:</h3>
+                <div class="score-value" id="score">0</div>
+            </section>
+            <section class="size-section">
+                <h3>Rozmiar:</h3>
+                <button class="size-btn" onclick="lessCells()">-</button>
+                <div class=size-value id="size">4</div>
+                <button class="size-btn" onclick="moreCells()">+</button>
+            </section>
+        </div>
+        <div class=canvas-section>
+            <canvas id="canvas"></canvas>
+        </div>
+        <script src="script.js"></script>
     </div>
 </body>
 </html>

@@ -1,22 +1,26 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
-/*GENERAL*/ 
-body{
+
+/*GENERAL*/
+body {
     background-color: #202020;
     font-family: "Montserrat", sans-serif;
 }
-h1{
+
+h1 {
     font-size: 250px;
     color: #ffd000;
     text-align: center;
     margin-bottom: 20px;
-    margin-top: 20px; 
+    margin-top: 20px;
 }
-h2{
+
+h2 {
     font-size: 180px;
     color: #E6BE30;
     text-align: center;
     margin: 0;
 }
+
 h3 {
     font-size: 60px;
     color: #A9A9A9;
@@ -24,65 +28,75 @@ h3 {
     margin: 0;
     padding: 10px;
 }
-h4{
+
+h4 {
     font-size: 20px;
     color: #A9A9A9;
     text-align: justify;
     padding: 20px;
     margin: 0;
 }
-h6{
+
+h6 {
     font-size: 10px;
     color: #A9A9A9;
     text-align: justify;
     padding: 10px;
 }
-a{
+
+a {
     text-decoration: none;
 }
-section{
+
+section {
     display: flex;
     align-items: center;
 }
 
-button{
+button {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    background-color:#110d0d;
+    background-color: #110d0d;
     font-family: "Montserrat", sans-serif;
     color: #E6BE30;
-    transition: all 0.4s;
+    transition: all 0.5s;
 }
+
 /*START MENU*/
-.menu{
+.menu {
     margin-top: 170px;
     flex-direction: column;
 }
-.menu button{
+
+.menu button {
     width: 75vw;
     height: 12vh;
     font-size: 60px;
     margin: 10px;
     border-radius: 30px;
 }
-@media (orientation: landscape){
-    h1{
+
+@media (orientation: landscape) {
+    h1 {
         font-size: 100px;
     }
-    .menu button{
-    width: 75vw;
-    height: 20vh;
-    font-size: 40px;
-    margin-top: 0;
+
+    .menu button {
+        width: 75vw;
+        height: 20vh;
+        font-size: 40px;
+        margin-top: 0;
     }
-    .menu{
+
+    .menu {
         margin-top: 0;
     }
 }
+
 /*GAME RULES*/
-img{
+img {
     width: 80%;
     padding: 50px;
     display: block;
@@ -90,83 +104,65 @@ img{
     margin-right: auto;
     border-radius: 120px;
 }
-@media (orientation: landscape){
-    .rules{
+
+@media (orientation: landscape) {
+    .rules {
         display: flex;
     }
-    .rules-instruction{
+
+    .rules-instruction {
         width: 50%;
     }
-    .rules-credit{
+
+    .rules-credit {
         width: 50%;
     }
 }
+
 /*PLAY MODE*/
-.size-btn{
+.size-btn {
     font-size: 50px;
     width: 60px;
     height: 60px;
 }
+
 .size-value {
-    font-size: 40px;   
+    font-size: 40px;
     padding: 10px;
 }
+
 .score-value {
     font-size: 40px;
 }
-.play div{
+
+.play div {
     color: #A9A9A9;
     font-family: "Montserrat", sans-serif;
     font-size: 60px;
 }
-.canvas-section{
+
+.canvas-section {
     display: flex;
     align-content: center;
     justify-content: center;
     padding: 4%
 }
-#canvas{
+
+#canvas {
     display: flex;
-    width:100%;
+    width: 100%;
 }
-@media (orientation: landscape){
-    .play{
+
+@media (orientation: landscape) {
+    .play {
         display: flex;
     }
-    .info{
+
+    .info {
         width: 50%;
     }
-    .canvas-section{
+
+    .canvas-section {
         width: 50%;
     }
 }
-
-
-
-
-/*
-.play-canva{
-    display: flex;
-}
-.play-canva-row{
-    flex-direction: row;
-    flex-wrap: wrap ;
-
-}
-.play-canva-cell{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    width: 22vw;
-    height: 22vw;
-    background-color: #D1E8E2;
-    border: 4px solid #116466;
-}
-
-@media (orientation: landscape){
-    .play-canva-cell{
-        width: 21vh;
-        height: 21vh;
-    }
-}*/
