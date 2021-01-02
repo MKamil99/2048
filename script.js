@@ -138,7 +138,7 @@ function handleTouchMove(evt) {
     }
     xDown = null;
     yDown = null;
-    score.innerHTML = points;
+    score.innerHTML = "Wynik: " + points;
 };
 //KONIEC KODU ODPOWIEDZIALNEGO ZA OBSŁUGĘ PRZECIĄGNIĘĆ PALCEM
 
@@ -146,22 +146,19 @@ function handleTouchMove(evt) {
 function swipeRight() {
     var i, j;
     var coll;
-	var moved=false;
     for (i = 0; i < size; i++) {
         for (j = size - 2; j >= 0; j--) {
-            if (cells[i][j].value !=0) {
+            if (cells[i][j].value) {
                 coll = j;
                 while (coll + 1 < size) {
-                    if (cells[i][coll + 1].value == 0) {
+                    if (!cells[i][coll + 1].value) {
                         cells[i][coll + 1].value = cells[i][coll].value;
                         cells[i][coll].value = 0;
                         coll++;
-						moved=true;
                     } else if (cells[i][coll].value == cells[i][coll + 1].value) {
                         cells[i][coll + 1].value *= 2;
                         points += cells[i][coll + 1].value;
                         cells[i][coll].value = 0;
-						moved=true;
                         break;
                     } else {
                         break;
@@ -170,30 +167,25 @@ function swipeRight() {
             }
         }
     }
-	if(moved){
-		pasteNewCell();
-	}
+    pasteNewCell();
 }
 
 function swipeLeft() {
     var i, j;
     var coll;
-	var moved=false;
     for (i = 0; i < size; i++) {
         for (j = 1; j < size; j++) {
-            if (cells[i][j].value != 0) {
+            if (cells[i][j].value) {
                 coll = j;
                 while (coll - 1 >= 0) {
-                    if (cells[i][coll - 1].value == 0) {
+                    if (!cells[i][coll - 1].value) {
                         cells[i][coll - 1].value = cells[i][coll].value;
                         cells[i][coll].value = 0;
                         coll--;
-						moved=true;
                     } else if (cells[i][coll].value == cells[i][coll - 1].value) {
                         cells[i][coll - 1].value *= 2;
                         points += cells[i][coll - 1].value;
                         cells[i][coll].value = 0;
-						moved=true;
                         break;
                     } else {
                         break;
@@ -202,29 +194,24 @@ function swipeLeft() {
             }
         }
     }
-	if(moved){
-		pasteNewCell();
-	}
+    pasteNewCell();
 }
 
 function swipeUp() {
     var i, j, row;
-	var moved=false;
     for (j = 0; j < size; j++) {
         for (i = 1; i < size; i++) {
-            if (cells[i][j].value != 0) {
+            if (cells[i][j].value) {
                 row = i;
                 while (row > 0) {
-                    if (cells[row - 1][j].value == 0) {
+                    if (!cells[row - 1][j].value) {
                         cells[row - 1][j].value = cells[row][j].value;
                         cells[row][j].value = 0;
                         row--;
-						moved=true;
                     } else if (cells[row][j].value == cells[row - 1][j].value) {
                         cells[row - 1][j].value *= 2;
                         points += cells[row - 1][j].value;
                         cells[row][j].value = 0;
-						moved=true;
                         break;
                     } else {
                         break;
@@ -233,14 +220,11 @@ function swipeUp() {
             }
         }
     }
-	if(moved){
-		pasteNewCell();
-	}
+    pasteNewCell();
 }
 
 function swipeDown() {
     var i, j, row;
-	var moved=false;
     for (j = 0; j < size; j++) {
         for (i = size - 2; i >= 0; i--) {
             if (cells[i][j].value) {
@@ -250,12 +234,10 @@ function swipeDown() {
                         cells[row + 1][j].value = cells[row][j].value;
                         cells[row][j].value = 0;
                         row++;
-						moved=true;
                     } else if (cells[row][j].value == cells[row + 1][j].value) {
                         cells[row + 1][j].value *= 2;
                         points += cells[row + 1][j].value;
                         cells[row][j].value = 0;
-						moved=true;
                         break;
                     } else {
                         break;
@@ -264,9 +246,7 @@ function swipeDown() {
             }
         }
     }
-	if(moved){
-		pasteNewCell();
-	}
+    pasteNewCell();
 }
 //KONIEC KODU DO PRZESUWANIA KAFELKÓW
 
@@ -276,19 +256,19 @@ function pasteNewCell() {
     var i, j;
     for (i = 0; i < size; i++) {
         for (j = 0; j < size; j++) {
-            if (cells[i][j].value == 0) {
+            if (!cells[i][j].value) {
                 countFree++;
             }
         }
     }
-    if (countFree == 0) {
+    if (!countFree) {
         finishGame();
         return;
     }
     while (true) {
         var row = Math.floor(Math.random() * size);
         var coll = Math.floor(Math.random() * size);
-        if (cells[row][coll].value ==0) {
+        if (!cells[row][coll].value) {
             cells[row][coll].value = 2 * Math.ceil(Math.random() * 2);
             drawAllCells();
             return;
@@ -323,9 +303,4 @@ function startGame() {
     drawAllCells();
     pasteNewCell();
     pasteNewCell();
-}
-
-function finishGame() {
-  canvas.style.opacity = '0.5';
-  gameOver=true;
 }
