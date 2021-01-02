@@ -138,7 +138,7 @@ function handleTouchMove(evt) {
     }
     xDown = null;
     yDown = null;
-    score.innerHTML = points;
+    score.innerHTML = "Wynik: " + points;
 };
 //KONIEC KODU ODPOWIEDZIALNEGO ZA OBSŁUGĘ PRZECIĄGNIĘĆ PALCEM
 
