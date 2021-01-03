@@ -6,25 +6,37 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>2048</title>
         <link rel="stylesheet" href="style.css">
+        <script src="script.js" defer></script>
     </head>
     <body>
-        <div class="play">
-            <div class="info">
+        <section id="setup">
+            <h2>2048</h2>
+            <div>
+                <div id="nick-section">
+                    <p>PODAJ SWÓJ NICK:</p>
+                    <input type="text" id="nick-value" maxlength="10"/>
+                </div>
+                <div id="size-section">
+                    <p>WYBIERZ ROZMIAR PLANSZY:</p>
+                    <div>
+                        <button class="size-btn" onclick="lessCells()">-</button>
+                        <div id="size-value">4</div>
+                        <button class="size-btn" onclick="moreCells()">+</button>
+                    </div>
+                </div>
+            </div>
+            <button id="save" onclick="setNick()">ZAPISZ</button>
+        </section>
+        <section id="play">
+            <div id="info">
                 <h2>2048</h2>
-                <section class="score-section">
-                    <h3 class="score-value" id="score">WYNIK: 0</h3>
-                </section>
-                <section class="size-section">
-                    <h3>Rozmiar:</h3>
-                    <button class="size-btn" onclick="lessCells()">-</button>
-                    <div class=size-value id="size">4</div>
-                    <button class="size-btn" onclick="moreCells()">+</button>
+                <section id="score-section">
+                    <h3 id="score-value">WYNIK: 0</h3>
                 </section>
             </div>
-            <div class=canvas-section>
+            <div id=canvas-section>
                 <canvas id="canvas"></canvas>
             </div>
-            <script src="script.js"></script>
-        </div>
+        </section>
     </body>
 </html>

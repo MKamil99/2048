@@ -1,5 +1,5 @@
 // References to HTML elements:
-var sizeNumber = document.getElementById("size"); 
+var sizeNumber = document.getElementById("ranking-size-value"); 
 var rankingListDiv = document.getElementById("ranking-list");
 
 // Other attributes:
@@ -11,7 +11,7 @@ function reduceSize()
 { 
     if (parseInt(sizeNumber.innerHTML) > 4) 
     {
-        document.getElementById("size").innerHTML = parseInt(sizeNumber.innerHTML) - 1;
+        document.getElementById("ranking-size-value").innerHTML = parseInt(sizeNumber.innerHTML) - 1;
         buildRanking();
     }
 }
@@ -19,7 +19,7 @@ function extendSize()
 { 
     if (parseInt(sizeNumber.innerHTML) < 7) 
     {
-        document.getElementById("size").innerHTML = parseInt(sizeNumber.innerHTML) + 1;
+        document.getElementById("ranking-size-value").innerHTML = parseInt(sizeNumber.innerHTML) + 1;
         buildRanking();
     }
 }

@@ -1,13 +1,20 @@
+//                        2048
+//      Limanówka Dominika, Matula Kamil, Różycki Iwo
+// Projekt zaliczeniowy z przedmiotu Mobilne Aplikacje Webowe
+
+// References to HTML elements:
 var canvas = document.getElementById('canvas');
-var context = canvas.getContext('2d');
-var points = 0;
 var score = document.getElementById('score');
-var size = document.getElementById('size').textContent;
+var size = document.getElementById('size-value').textContent;
+var context = canvas.getContext('2d');
 var sideLength = (canvas.width / size);
-var cells = [];
 var fontSize;
-var gameOver = false;
 canvas.height = canvas.width;
+
+// Game attributes:
+var cells = [];
+var nick;
+var gameOver = false;
 startGame();
 
 //ODPOWIEDZIALNE ZA RYSOWANIE PLANSZY: 
@@ -41,7 +48,7 @@ function drawCell(cell) {
             context.fillStyle = '#FFB812';
             break;
         case 8:
-            context.fillStyle = '#ea662a';
+            context.fillStyle = '#EA662A';
             break;
         case 16:
             context.fillStyle = '#EA362A';
@@ -138,7 +145,7 @@ function handleTouchMove(evt) {
     }
     xDown = null;
     yDown = null;
-    score.innerHTML = "Wynik: " + points;
+    score.innerHTML = "WYNIK: " + points;
 };
 //KONIEC KODU ODPOWIEDZIALNEGO ZA OBSŁUGĘ PRZECIĄGNIĘĆ PALCEM
 
@@ -279,17 +286,17 @@ function pasteNewCell() {
 
 //KOD ODPOWIEDZIALNY ZA ZMIANĘ WIELKOŚCI PLANSZY - OBSŁUGA PRZYCISKÓW
 function lessCells() {
-    if (parseInt(document.getElementById('size').textContent) > 4) {
-        document.getElementById('size').textContent = parseInt(document.getElementById('size').textContent) - 1
-        size = parseInt(document.getElementById('size').textContent)
+    if (parseInt(document.getElementById('size-value').textContent) > 4) {
+        document.getElementById('size-value').textContent = parseInt(document.getElementById('size-value').textContent) - 1
+        size = parseInt(document.getElementById('size-value').textContent)
         startGame();
     }
 }
 
 function moreCells() {
-    if (parseInt(document.getElementById('size').textContent) < 7) {
-        document.getElementById('size').textContent = parseInt(document.getElementById('size').textContent) + 1
-        size = parseInt(document.getElementById('size').textContent)
+    if (parseInt(document.getElementById('size-value').textContent) < 7) {
+        document.getElementById('size-value').textContent = parseInt(document.getElementById('size-value').textContent) + 1
+        size = parseInt(document.getElementById('size-value').textContent)
         startGame();
     }
 }
@@ -303,4 +310,43 @@ function startGame() {
     drawAllCells();
     pasteNewCell();
     pasteNewCell();
+}
+
+
+
+
+
+
+
+
+function setNick()
+{
+    let input = document.getElementById("nick-value");
+    if (input == null && input == "") return;
+    
+    document.getElementById("setup").style.display = "none";
+    document.getElementById("play").style.display = "flex";
+    nick = input.value;
+}
+
+function buildAndSendJSON()
+{
+    // Building JSON:
+    let data = {};
+    data["nick"] = nick;
+    data["score"] = score.innerHTML;
+    data["size"] = "size" + size;
+
+    // Sending JSON to PHP and receiving info about the place player get:
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "ranking_update.php", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () { 
+        if (xhr.readyState === 4 && xhr.status === 200)
+        {
+            const responseObject = this.responseText;
+            console.log(responseObject);
+        }
+    }; 
+    xhr.send(JSON.stringify(data));
 }
