@@ -6,10 +6,21 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>2048</title>
         <link rel="stylesheet" href="style.css">
+        <script src="ranking_show.js" defer></script>
     </head>
     <body>
-        <div class="ranking">
-            <h3>TU<br/>BĘDZIE<br/>RANKING</h3>
+        <div id="ranking">
+            <div id="ranking-header">
+                <h2>2048</h2>
+                <h3>NAJLEPSZE WYNIKI</h3>
+                <section class="size-section">
+                    <p>ROZMIAR:</p>
+                    <button class="size-btn" onclick="reduceSize()">-</button>
+                    <div class=size-value id="size">4</div>
+                    <button class="size-btn" onclick="extendSize()">+</button>
+                </section>
+            </div>
+            <div id="ranking-list"></div>
         </div>
     </body>
 </html>

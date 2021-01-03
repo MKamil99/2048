@@ -8,7 +8,7 @@ $fileContent = null;
 if (file_exists("data.json") && file_get_contents("data.json") != null) 
     $fileContent = json_decode(file_get_contents("data.json"), true);
 if ($fileContent == null) 
-    $fileContent = array("4"=>[], "5"=>[], "6"=>[], "7"=>[]);
+    $fileContent = array("size4"=>[], "size5"=>[], "size6"=>[], "size7"=>[]);
 
 // Finding accurate ranking list:
 $submitSize = $submit->size;
