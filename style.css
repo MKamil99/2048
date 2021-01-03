@@ -1,11 +1,15 @@
 /* GENERAL */
+html, body /* prevents scrolling */
+{
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+}
 body 
 {
     background-color: #202020;
     font-family: "Montserrat", sans-serif;
-    height: 95vh;
 }
-* { outline: none; }
 
 h1 { color: #ffd000; text-align: center; }
 h2 { color: #E6BE30; text-align: center; margin: 0; }
@@ -28,8 +32,8 @@ button
     background-color: #110d0d;
     font-family: "Montserrat", sans-serif;
     color: #E6BE30;
-    transition: all 0.5s;
 }
+button:focus { outline: none; }
 
 @media(orientation: landscape)
 {
@@ -63,6 +67,7 @@ button
     width: 70vw; 
     height: 10vh; 
     border-radius: 30px;
+    transition: all 0.5s;
 }
 @media (orientation: portrait) 
 {
@@ -137,7 +142,7 @@ img
         width: 5vw; 
         height: 5vw; 
         margin: 1vh; 
-        padding: 1.5vh; 
+        line-height: 100%;
     }
     .size-value { font-size: 3vh; }
 }
@@ -153,7 +158,7 @@ img
         width: 5vh; 
         height: 5vh; 
         margin: 1vw; 
-        padding: 1.5vw; 
+        line-height: 100%;
     }
     .size-value { font-size: 3vw; }
 }
