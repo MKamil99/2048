@@ -30,13 +30,23 @@
         <section id="play">
             <div id="info">
                 <h2>2048</h2>
-                <section id="score-section">
+                <div id="score-section">
                     <h3 id="score-value">WYNIK: 0</h3>
-                </section>
+                </div>
+                <div id="buttons-section">
+                    <button id="settings" onclick="returnToSettings()">USTAWIENIA</button>
+                    <button id="finish" onclick="finishGame()">ZAKOŃCZ GRĘ</button>
+                </div>
             </div>
             <div id=canvas-section>
                 <canvas id="canvas"></canvas>
             </div>
+            <!-- 
+            <div id="gameover">
+                <h2>KONIEC GRY!</h2>
+                <h3 id="result">Brawo!<br/>Zajmujesz 1. miejsce w rankingu!</h3>
+            </div>
+            -->
         </section>
     </body>
 </html>

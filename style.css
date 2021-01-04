@@ -1,3 +1,7 @@
+/*                        2048
+      Limanówka Dominika, Matula Kamil, Różycki Iwo
+Projekt zaliczeniowy z przedmiotu Mobilne Aplikacje Webowe */
+
 /* GENERAL */
 html, body /* prevents scrolling */
 {
@@ -75,10 +79,10 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
 
 
 
-/* PLAY SETUP */
-#play { display: none; }
+/* PLAY SETUP (AKA SETTINGS) */
 #setup 
 {
+    display: none;
     flex-direction: column;
     color: #A9A9A9;
     justify-content: space-around;
@@ -111,7 +115,7 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
     { 
         font-size: 3vh; 
         font-weight: bold; 
-        margin: 2.5vh;
+        margin: 2.5vw;
     }
     #nick-value
     { 
@@ -141,7 +145,7 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
     { 
         font-size: 3vw; 
         font-weight: bold; 
-        margin: 2.5vw;
+        margin: 2.5vh;
     }
     #nick-value
     { 
@@ -173,22 +177,61 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
 { 
     display: flex;
     flex-direction: column;
-    justify-content: center; 
     align-items: center; 
 }
 #canvas { width: 100%; height: 100%; }
 @media (orientation: portrait)
 {
     #play { flex-direction: column; }
-    #canvas-section { width: 90vw; height: 90vw; margin-top: 10vw; }
+    #info { width: 100%; height: 30%; }
+    #buttons-section
+    {
+        display: flex;
+        justify-content: space-around;
+        width: 90%; 
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    #buttons-section button 
+    { 
+        font-size: 2vh; 
+        margin: 1vw;
+        padding-top: 0.5vh;
+        padding-bottom: 0.5vh;
+        height: fit-content; 
+        width: 40%;
+    }
+    #canvas-section { width: 80vw; height: 80vw; margin: 5vw; }
 }
 @media (orientation: landscape) 
 {
-    #info { width: calc(100vw - 100vh); }
-    #canvas-section { width: 90vh; height: 90vh; margin: 5vh; }
+    #info { width: calc(100vw - 100vh); height: 80%;  }
+    #buttons-section
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%; 
+        margin-top: auto;
+        width: fit-content;
+    }
+    #buttons-section button 
+    { 
+        height: fit-content; 
+        width: 100%;
+        font-size: 3vw; 
+        margin: 1vh;
+        padding: 1vh;
+    }
+    #canvas-section { width: 80vh; height: 80vh; margin: 5vh; }
 }
 
-
+/* GAME OVER */
+/*
+#gameover { position: absolute; }
+#gameover h2 { color: red; }
+#result { color: green; }
+*/
 
 /* GAME RULES */
 img 
@@ -245,20 +288,22 @@ img
     #ranking h3 { font-size: 8vw; }
     #ranking-header 
     {    
-        padding-top: 3vh;
-        padding-bottom: 3vh;
+        padding-top: 2vh;
+        padding-bottom: 2vh;
         width: 100%; 
     }
     #ranking-list
     {    
-        padding: 5vh;
+        padding-left: 5vw;
+        padding-right: 5vw;
+        padding-top: 5vh;
     }
     #ranking-list div p
     {
-        padding-top: 1vh;
-        padding-bottom: 1vh;
+        padding-top: 1vw;
+        padding-bottom: 1vw;
+        font-size: 5vw;
         margin: 0;
-        font-size: 6vw;
     }
     #ranking-size-section { font-size: 3vh; }
     #ranking-size-section button 
@@ -285,10 +330,10 @@ img
     }
     #ranking-list div p
     {
-        padding-top: 1vw;
-        padding-bottom: 1vw;
+        padding-top: 1vh;
+        padding-bottom: 1vh;
+        font-size: 5vh;
         margin: 0;
-        font-size: 6vh;
     }
     #ranking-size-section { font-size: 5vh; }
     #ranking-size-section button 

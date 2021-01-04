@@ -4,18 +4,46 @@
 
 // References to HTML elements:
 var canvas = document.getElementById('canvas');
-var score = document.getElementById('score');
-var size = document.getElementById('size-value').textContent;
+var score = document.getElementById('score-value');
+var sizeValue = document.getElementById('size-value');
 var context = canvas.getContext('2d');
+var size = parseInt(sizeValue.textContent);
 var sideLength = (canvas.width / size);
 var fontSize;
 canvas.height = canvas.width;
 
 // Game attributes:
 var cells = [];
-var nick;
+var nick = "[Nieznany]";
 var gameOver = false;
+var points = 0;
 startGame();
+
+
+
+// Main function:
+function startGame() 
+{
+    canvasClean();
+    sideLength = (canvas.width / size);
+    cells = [];
+
+    createCells();
+    drawAllCells();
+
+    pasteNewCell();
+    pasteNewCell();
+}
+
+function finishGame()
+{
+    // game over sign or something here?
+
+
+    buildAndSendJSON();
+}
+
+
 
 //ODPOWIEDZIALNE ZA RYSOWANIE PLANSZY: 
 function createCell(row, coll) {
@@ -284,57 +312,52 @@ function pasteNewCell() {
 }
 //KONIEC LOSOWANIA NOWYCH KAFELKÓW
 
-//KOD ODPOWIEDZIALNY ZA ZMIANĘ WIELKOŚCI PLANSZY - OBSŁUGA PRZYCISKÓW
-function lessCells() {
-    if (parseInt(document.getElementById('size-value').textContent) > 4) {
-        document.getElementById('size-value').textContent = parseInt(document.getElementById('size-value').textContent) - 1
-        size = parseInt(document.getElementById('size-value').textContent)
+// Reaction for buttons: changing size of the board:
+function lessCells() 
+{
+    if (size > 4) 
+    {
+        document.getElementById('size-value').textContent = size - 1;
+        size = parseInt(document.getElementById('size-value').textContent);
+        startGame();
+    }
+}
+function moreCells() 
+{
+    if (size < 7) 
+    {
+        document.getElementById('size-value').textContent = size + 1;
+        size = parseInt(document.getElementById('size-value').textContent);
         startGame();
     }
 }
 
-function moreCells() {
-    if (parseInt(document.getElementById('size-value').textContent) < 7) {
-        document.getElementById('size-value').textContent = parseInt(document.getElementById('size-value').textContent) + 1
-        size = parseInt(document.getElementById('size-value').textContent)
-        startGame();
-    }
-}
-//KONIEC KODU ODPOWIEDZIALNEGO ZA ZMIANĘ WIELKOŚCI PLANSZY - OBSŁUGA PRZYCISKÓW
 
-function startGame() {
-    canvasClean()
-    sideLength = (canvas.width / size);
-    cells = []
-    createCells();
-    drawAllCells();
-    pasteNewCell();
-    pasteNewCell();
-}
-
-
-
-
-
-
-
-
+// Go from SETUP/SETTINGS to PLAY MODE and set player's nick:
 function setNick()
 {
     let input = document.getElementById("nick-value");
-    if (input == null && input == "") return;
+    //if (input.value == null || input.value == "") return; // uncomment if player can't be no-named...
     
     document.getElementById("setup").style.display = "none";
     document.getElementById("play").style.display = "flex";
-    nick = input.value;
+    if (input.value !== null && input.value !== "") nick = input.value;
 }
 
+// Go from PLAY MODE to SETTINGS if player wants to change nick or board size:
+function returnToSettings()
+{
+    document.getElementById("setup").style.display = "flex";
+    document.getElementById("play").style.display = "none";
+}
+
+// Check which place did player get:
 function buildAndSendJSON()
 {
     // Building JSON:
     let data = {};
     data["nick"] = nick;
-    data["score"] = score.innerHTML;
+    data["score"] = points;
     data["size"] = "size" + size;
 
     // Sending JSON to PHP and receiving info about the place player get:
@@ -345,7 +368,10 @@ function buildAndSendJSON()
         if (xhr.readyState === 4 && xhr.status === 200)
         {
             const responseObject = this.responseText;
-            console.log(responseObject);
+            // responseObject is a number; 
+            // if it is greater than 11, it means that you are out of the ranking.
+            // Later it should display something like "Good job! You're at {responseObject}. 
+            // place in ranking!" or nothing if it is greater than 11
         }
     }; 
     xhr.send(JSON.stringify(data));

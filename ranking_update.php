@@ -32,5 +32,5 @@ file_put_contents("data.json", json_encode($fileContent));
 // Searching for answer where player is on the list
 for($i = 0; $i < count($accurateRanking); $i++)
     if ($accurateRanking[$i] == $newRecord) break;
-print_r($i < 10 ? $i + 1 : "You are not on the list! :(");
+print_r($i + 1);
 ?> 
