@@ -405,7 +405,7 @@ function pasteNewCell() {
         var coll = Math.floor(Math.random() * size);
 		var r=Math.random(1);
         if (cells[row][coll].value == 0) {
-            cells[row][coll].value = r > 0.15 ? 512 : 1024;
+            cells[row][coll].value = r > 0.15 ? 2 : 4;
             drawAllCells();
             return;
         }
