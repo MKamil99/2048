@@ -1,8 +1,12 @@
+<!--                        2048
+      Limanówka Dominika, Matula Kamil, Różycki Iwo
+Projekt zaliczeniowy z przedmiotu Mobilne Aplikacje Webowe -->
+
 <!DOCTYPE html>
 <html lang="pl">
     <head>
         <meta charset="UTF-8">
-        <meta name="2048" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>2048</title>
         <link rel="stylesheet" href="style.css">
@@ -15,9 +19,9 @@
                 <h3>NAJLEPSZE WYNIKI</h3>
                 <div id="ranking-size-section">
                     <p>ROZMIAR PLANSZY:</p>
-                    <button class="size-btn" onclick="reduceSize()">-</button>
+                    <button class="size-btn" id="rankingMinusButton">-</button>
                     <div id="ranking-size-value">4</div>
-                    <button class="size-btn" onclick="extendSize()">+</button>
+                    <button class="size-btn" id="rankingPlusButton">+</button>
                 </div>
             </div>
             <div id="ranking-list"></div>

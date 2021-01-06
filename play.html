@@ -1,8 +1,12 @@
+<!--                        2048
+      Limanówka Dominika, Matula Kamil, Różycki Iwo
+Projekt zaliczeniowy z przedmiotu Mobilne Aplikacje Webowe -->
+
 <!DOCTYPE html>
 <html lang="pl">
     <head>
         <meta charset="UTF-8">
-        <meta name="2048" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>2048</title>
         <link rel="stylesheet" href="style.css">
@@ -14,18 +18,18 @@
             <div>
                 <div id="nick-section">
                     <p>PODAJ SWÓJ NICK:</p>
-                    <input type="text" id="nick-value" maxlength="10"/>
+                    <input type="text" id="nick-value" maxlength="11"/>
                 </div>
                 <div id="size-section">
                     <p>WYBIERZ ROZMIAR PLANSZY:</p>
                     <div>
-                        <button class="size-btn" onclick="lessCells();resetScore()">-</button>
+                        <button class="size-btn" id="setupMinusButton">-</button>
                         <div id="size-value">4</div>
-                        <button class="size-btn" onclick="moreCells();resetScore()">+</button>
+                        <button class="size-btn" id="setupPlusButton">+</button>
                     </div>
                 </div>
             </div>
-            <button id="save" onclick="setNick()">ZAPISZ</button>
+            <button id="setupSaveButton">ZAPISZ</button>
         </section>
         <section id="play">
             <div id="info">
@@ -34,19 +38,18 @@
                     <h3 id="score-value">WYNIK: 0</h3>
                 </div>
                 <div id="buttons-section">
-                    <button id="settings" onclick="returnToSettings()">USTAWIENIA</button>
-                    <button id="finish" onclick="finishGame()">ZAKOŃCZ GRĘ</button>
+                    <button id="settingsButton">USTAWIENIA</button>
+                    <button id="surrenderButton">PODDAJ SIĘ</button>
                 </div>
             </div>
             <div id=canvas-section>
                 <canvas id="canvas"></canvas>
             </div>
-            <!-- 
-            <div id="gameover">
-                <h2>KONIEC GRY!</h2>
-                <h3 id="result">Brawo!<br/>Zajmujesz 1. miejsce w rankingu!</h3>
-            </div>
-            -->
+        </section>
+        <section id="gameover">
+            <h2>KONIEC GRY!</h2>
+            <p id="result"></p>
+            <button id="retryButton">SPRÓBUJ PONOWNIE</button>
         </section>
     </body>
 </html>

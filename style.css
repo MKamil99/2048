@@ -131,7 +131,7 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
         width: 3vh; 
         margin: 1vh;
     }
-    #save
+    #setupSaveButton
     { 
         font-size: 4vh; 
         height: 5vh; 
@@ -160,7 +160,7 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
         width: 3vw; 
         margin: 1vh;
     }
-    #save
+    #setupSaveButton
     { 
         font-size: 3vw; 
         height: 3vw; 
@@ -219,7 +219,7 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
     { 
         height: fit-content; 
         width: 100%;
-        font-size: 3vw; 
+        font-size: 2vw; 
         margin: 1vh;
         padding: 1vh;
     }
@@ -227,11 +227,54 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
 }
 
 /* GAME OVER */
-/*
-#gameover { position: absolute; }
-#gameover h2 { color: red; }
-#result { color: green; }
-*/
+#gameover 
+{ 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    text-align: center;
+    display: none;
+}
+#gameover h2 { -webkit-text-stroke: 0.02em black; }
+#result 
+{ 
+    position: absolute; 
+    color:  azure; 
+    -webkit-text-stroke: 0.02em #110D0D; 
+    top: 50%; 
+    bottom: 50%;
+    width: 80%;
+}
+#retryButton
+{ 
+    position: absolute; 
+    margin-top: auto; 
+    bottom: 1vh; 
+    width: fit-content; 
+    height: fit-content;
+}
+@media (orientation: portrait)
+{
+    #gameover h2 { font-size: 15vw; }
+    #result { font-size: 8vw; }
+    #retryButton
+    { 
+        font-size: 3vw; 
+        margin: 1vw;
+        padding: 1vw;
+    }
+}
+@media (orientation: landscape)
+{
+    #gameover h2 { font-size: 15vh; }
+    #result { font-size: 8vh; }
+    #retryButton
+    { 
+        font-size: 3vh; 
+        margin: 1vh;
+        padding: 1vh;
+    }
+}
 
 /* GAME RULES */
 img 

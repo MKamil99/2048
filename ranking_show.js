@@ -1,10 +1,21 @@
+//                        2048
+//      Limanówka Dominika, Matula Kamil, Różycki Iwo
+// Projekt zaliczeniowy z przedmiotu Mobilne Aplikacje Webowe
+
 // References to HTML elements:
 var sizeNumber = document.getElementById("ranking-size-value"); 
 var rankingListDiv = document.getElementById("ranking-list");
 
+// Setting onclick attributes to HTML elements:
+document.getElementById("rankingPlusButton").setAttribute("onclick",  "javascript: extendSize()");
+document.getElementById("rankingMinusButton").setAttribute("onclick", "javascript: reduceSize()");
+
 // Other attributes:
 var rankingList = null;
 readFile();
+
+
+
 
 // Reaction for clicking -/+ buttons:
 function reduceSize() 
@@ -17,12 +28,15 @@ function reduceSize()
 }
 function extendSize()
 { 
-    if (parseInt(sizeNumber.innerHTML) < 7) 
+    if (parseInt(sizeNumber.innerHTML) < 6) 
     {
         document.getElementById("ranking-size-value").innerHTML = parseInt(sizeNumber.innerHTML) + 1;
         buildRanking();
     }
 }
+
+
+
 
 // Reading ranking from .json file by using PHP:
 function readFile()
