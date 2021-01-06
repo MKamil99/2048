@@ -15,15 +15,17 @@ canvas.height = canvas.width;
 // Game attributes:
 var cells = [];
 var nick = "[Nieznany]";
-var gameOver = false;
 var points = 0;
+var nick;
+var points =0;
+
 startGame();
 
 
 
 // Main function:
 function startGame() 
-{
+{	
     canvasClean();
     sideLength = (canvas.width / size);
     cells = [];
@@ -173,121 +175,219 @@ function handleTouchMove(evt) {
     }
     xDown = null;
     yDown = null;
-    score.innerHTML = "WYNIK: " + points;
+	
+    document.getElementById('score-value').innerHTML= "WYNIK: " + points;
 };
 //KONIEC KODU ODPOWIEDZIALNEGO ZA OBSŁUGĘ PRZECIĄGNIĘĆ PALCEM
+
+//SPRAWDZENIE CZY GRA SIE ZAKONCZYLA
+function isGameOver()
+{
+	var gameOver=false;
+	var i,j;
+	var zeros=0;
+	for(i=0;i<size;i++){
+		for(j=0;j<size;j++){
+			if(cells[i][j].value == 0){
+				zeros++;
+			}
+		}
+	}
+	if(zeros===0){
+		gameOver=true;
+	}
+	return gameOver;
+}
+
+function isGameWon()
+{ 
+	var gameWon=false;
+	var i,j;
+	for(i=0;i<size;i++){
+		for(j=0;j<size;j++){
+			if(cells[i][j].value==2048){
+				gameWon=true;
+			}
+		}
+	}
+	return gameWon;
+}
 
 //PRZESUWANIE KAFELKÓW ??? (do uproszczenia?)
 function swipeRight() {
     var i, j;
     var coll;
-    for (i = 0; i < size; i++) {
-        for (j = size - 2; j >= 0; j--) {
-            if (cells[i][j].value) {
-                coll = j;
-                while (coll + 1 < size) {
-                    if (!cells[i][coll + 1].value) {
-                        cells[i][coll + 1].value = cells[i][coll].value;
-                        cells[i][coll].value = 0;
-                        coll++;
-                    } else if (cells[i][coll].value == cells[i][coll + 1].value) {
-                        cells[i][coll + 1].value *= 2;
-                        points += cells[i][coll + 1].value;
-                        cells[i][coll].value = 0;
-                        break;
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-    }
-    pasteNewCell();
+	var moved=false;
+	var arr=[];
+	if(isGameOver()){
+		console.log("Game Over!");
+	}
+	else if(isGameWon()){
+		console.log("Game Won!");
+	}
+	else{
+		for (i = 0; i < size; i++) {
+			for (j = size - 2; j >= 0; j--) {
+				if (cells[i][j].value != 0) {
+					coll = j;
+					while (coll + 1 < size) {
+						if (cells[i][coll + 1].value == 0) {
+							cells[i][coll + 1].value = cells[i][coll].value;
+							cells[i][coll].value = 0;
+							coll++;
+							moved=true;
+						} else if (cells[i][coll].value == cells[i][coll + 1].value && !arr.includes(coll)) {
+							cells[i][coll + 1].value += cells[i][coll].value;
+							points += cells[i][coll + 1].value;
+							cells[i][coll].value = 0;
+							arr.push(coll);
+							moved=true;
+							break;
+						} else {
+							break;
+						}
+					}
+				}
+			}
+		}	
+
+		if(moved){
+				pasteNewCell();
+		}
+	}
 }
+
 
 function swipeLeft() {
     var i, j;
     var coll;
-    for (i = 0; i < size; i++) {
-        for (j = 1; j < size; j++) {
-            if (cells[i][j].value) {
-                coll = j;
-                while (coll - 1 >= 0) {
-                    if (!cells[i][coll - 1].value) {
-                        cells[i][coll - 1].value = cells[i][coll].value;
-                        cells[i][coll].value = 0;
-                        coll--;
-                    } else if (cells[i][coll].value == cells[i][coll - 1].value) {
-                        cells[i][coll - 1].value *= 2;
-                        points += cells[i][coll - 1].value;
-                        cells[i][coll].value = 0;
-                        break;
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-    }
-    pasteNewCell();
+	var moved=false;
+	var arr=[];
+	if(isGameOver()){
+		console.log("Game Over!");
+	}
+	else if(isGameWon()){
+		console.log("Game Won!");
+	}
+	else{
+		for (i = 0; i < size; i++) {
+			for (j = 1; j < size; j++) {
+				if (cells[i][j].value != 0) {
+					coll = j;
+					while (coll - 1 >= 0) {
+						if (cells[i][coll - 1].value == 0) {
+							cells[i][coll - 1].value = cells[i][coll].value;
+							cells[i][coll].value = 0;
+							coll--;
+							moved=true;
+						} else if (cells[i][coll].value == cells[i][coll - 1].value && !arr.includes(coll))  {
+							cells[i][coll - 1].value += cells[i][coll].value;
+							points += cells[i][coll - 1].value;
+							cells[i][coll].value = 0;
+							arr.push(coll);
+							moved=true;
+							break;
+						} else {
+							break;
+						}
+					}
+				}
+			}
+		} 	
+
+		if(moved){
+				pasteNewCell();
+		}
+	}
 }
 
 function swipeUp() {
     var i, j, row;
-    for (j = 0; j < size; j++) {
-        for (i = 1; i < size; i++) {
-            if (cells[i][j].value) {
-                row = i;
-                while (row > 0) {
-                    if (!cells[row - 1][j].value) {
-                        cells[row - 1][j].value = cells[row][j].value;
-                        cells[row][j].value = 0;
-                        row--;
-                    } else if (cells[row][j].value == cells[row - 1][j].value) {
-                        cells[row - 1][j].value *= 2;
-                        points += cells[row - 1][j].value;
-                        cells[row][j].value = 0;
-                        break;
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-    }
-    pasteNewCell();
+	var moved=false;
+	var fused=false;
+	var arr=[];
+	if(isGameOver()){
+		console.log("Game Over!");
+	}
+	else if(isGameWon()){
+		console.log("Game Won!");
+	}
+	else{
+		for (j = 0; j < size; j++) {
+			for (i = 1; i < size; i++) {
+				if (cells[i][j].value != 0) {
+					row = i;
+					while (row > 0) {
+						if (cells[row - 1][j].value == 0) {
+							cells[row - 1][j].value = cells[row][j].value;
+							cells[row][j].value = 0;
+							row--;
+							moved=true;
+						} else if (cells[row][j].value == cells[row - 1][j].value && !arr.includes(row)) {
+							cells[row - 1][j].value += cells[row][j].value;
+							points += cells[row - 1][j].value;
+							cells[row][j].value = 0;
+							arr.push(row);
+							moved=true; 		
+							break;
+						} else {
+							break;
+						}
+					}
+				}
+			}
+		}
+		if(moved){
+				pasteNewCell();
+		}
+	}
 }
 
 function swipeDown() {
     var i, j, row;
-    for (j = 0; j < size; j++) {
-        for (i = size - 2; i >= 0; i--) {
-            if (cells[i][j].value) {
-                row = i;
-                while (row + 1 < size) {
-                    if (!cells[row + 1][j].value) {
-                        cells[row + 1][j].value = cells[row][j].value;
-                        cells[row][j].value = 0;
-                        row++;
-                    } else if (cells[row][j].value == cells[row + 1][j].value) {
-                        cells[row + 1][j].value *= 2;
-                        points += cells[row + 1][j].value;
-                        cells[row][j].value = 0;
-                        break;
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-    }
-    pasteNewCell();
+	var moved=false;
+	var arr=[];
+	if(isGameOver()){
+		console.log("Game Over!");
+	}
+	else if(isGameWon()){
+		console.log("Game Won!");
+	}
+	else{
+		for (j = 0; j < size; j++) {
+			for (i = size - 2; i >= 0; i--) {
+				if (cells[i][j].value) {
+					row = i;
+					while (row + 1 < size) {
+						if (!cells[row + 1][j].value) {
+							cells[row + 1][j].value = cells[row][j].value;
+							cells[row][j].value = 0;
+							row++;
+							moved=true;
+						} else if (cells[row][j].value == cells[row + 1][j].value && !arr.includes(row)) {	
+							cells[row + 1][j].value += cells[row][j].value;
+							points += cells[row + 1][j].value;
+							cells[row][j].value = 0;
+							arr.push(row);
+							moved=true;
+							break;
+						} else {
+							break;
+						}
+					}
+				}
+			}
+		}
+		if(moved){
+				pasteNewCell();
+		}
+	}
 }
 //KONIEC KODU DO PRZESUWANIA KAFELKÓW
 
 //DODAWANIE NOWYCH, LOSOWYCH KAFELKÓW ???
 function pasteNewCell() {
-    var countFree = 0;
+    /*var countFree = 0;
     var i, j;
     for (i = 0; i < size; i++) {
         for (j = 0; j < size; j++) {
@@ -296,20 +396,23 @@ function pasteNewCell() {
             }
         }
     }
-    if (!countFree) {
+    if (countFree == 0) {
         finishGame();
         return;
-    }
+    }*/
     while (true) {
         var row = Math.floor(Math.random() * size);
         var coll = Math.floor(Math.random() * size);
-        if (!cells[row][coll].value) {
-            cells[row][coll].value = 2 * Math.ceil(Math.random() * 2);
+		var r=Math.random(1);
+        if (cells[row][coll].value == 0) {
+            cells[row][coll].value = r > 0.15 ? 512 : 1024;
             drawAllCells();
             return;
         }
     }
 }
+
+
 //KONIEC LOSOWANIA NOWYCH KAFELKÓW
 
 // Reaction for buttons: changing size of the board:
@@ -349,6 +452,12 @@ function returnToSettings()
 {
     document.getElementById("setup").style.display = "flex";
     document.getElementById("play").style.display = "none";
+}
+//Reset score after board size change:
+function resetScore()
+{
+	points=0;
+	document.getElementById('score-value').innerHTML= "WYNIK: " + points;
 }
 
 // Check which place did player get:
