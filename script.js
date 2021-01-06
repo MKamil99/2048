@@ -222,6 +222,7 @@ function swipeRight() {
 	}
 	else{
 		for (i = 0; i < size; i++) {
+			arr=[];
 			for (j = size - 2; j >= 0; j--) {
 				if (cells[i][j].value != 0) {
 					coll = j;
@@ -266,6 +267,7 @@ function swipeLeft() {
 	}
 	else{
 		for (i = 0; i < size; i++) {
+			arr=[];
 			for (j = 1; j < size; j++) {
 				if (cells[i][j].value != 0) {
 					coll = j;
@@ -309,6 +311,7 @@ function swipeUp() {
 	}
 	else{
 		for (j = 0; j < size; j++) {
+			arr=[];
 			for (i = 1; i < size; i++) {
 				if (cells[i][j].value != 0) {
 					row = i;
@@ -350,6 +353,7 @@ function swipeDown() {
 	}
 	else{
 		for (j = 0; j < size; j++) {
+			arr=[];
 			for (i = size - 2; i >= 0; i--) {
 				if (cells[i][j].value) {
 					row = i;
