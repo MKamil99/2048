@@ -183,34 +183,29 @@ function handleTouchMove(evt) {
 //SPRAWDZENIE CZY GRA SIE ZAKONCZYLA
 function isGameOver()
 {
-	var gameOver=false;
+	
 	var i,j;
-	var zeros=0;
 	for(i=0;i<size;i++){
 		for(j=0;j<size;j++){
-			if(cells[i][j].value == 0){
-				zeros++;
+			if (i < (size-1) && cells[i][j].value === cells[i+1][j].value || j < (size-1) && cells[i][j].value === cells[i][j+1].value || cells[i][j].value === 0){
+				return false;
 			}
 		}
 	}
-	if(zeros===0){
-		gameOver=true;
-	}
-	return gameOver;
+	return true;
 }
 
 function isGameWon()
 { 
-	var gameWon=false;
 	var i,j;
 	for(i=0;i<size;i++){
 		for(j=0;j<size;j++){
-			if(cells[i][j].value==2048){
-				gameWon=true;
+			if(cells[i][j].value == 2048){
+				return true;
 			}
 		}
 	}
-	return gameWon;
+	return false;
 }
 
 //PRZESUWANIE KAFELKÓW ??? (do uproszczenia?)
