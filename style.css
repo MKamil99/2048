@@ -179,7 +179,19 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
     flex-direction: column;
     align-items: center; 
 }
-#canvas { width: 100%; height: 100%; }
+#canvas-section 
+{ 
+    background-color: #110D0D; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+#canvas 
+{ 
+    width: calc(100% - 6px); 
+    height: calc(100% - 6px); 
+    margin: 0;
+}
 @media (orientation: portrait)
 {
     #play { flex-direction: column; }
@@ -201,11 +213,12 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
         height: fit-content; 
         width: 40%;
     }
-    #canvas-section { width: 80vw; height: 80vw; margin: 5vw; }
+    #canvas-section { width: 80vw; height: 80vw; }
 }
 @media (orientation: landscape) 
 {
-    #info { width: calc(100vw - 100vh); height: 80%;  }
+    #play { justify-content: space-around; }
+    #info { width: fit-content; height: 80%;  }
     #buttons-section
     {
         display: flex;
@@ -223,7 +236,7 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
         margin: 1vh;
         padding: 1vh;
     }
-    #canvas-section { width: 80vh; height: 80vh; margin: 5vh; }
+    #canvas-section { width: 80vh; height: 80vh; }
 }
 
 /* GAME OVER */

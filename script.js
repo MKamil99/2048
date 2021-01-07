@@ -21,6 +21,7 @@ document.getElementById("surrenderButton").setAttribute("onclick",  "javascript:
 document.getElementById("retryButton").setAttribute("onclick",      "javascript: playAgain()");
 
 // Game attributes:
+var oneSquarePadding = 1;
 var cells = [];
 var nick = "Nieznany";
 var points = 0;
@@ -78,80 +79,85 @@ function canvasClean() { context.clearRect(0, 0, canvas.height, canvas.height); 
 
 
 // Drawing board: 
-function createCell(row, coll) 
-{
-    this.value = 0;
-    this.x = coll * (sideLength) + 1 + coll;
-    this.y = row * (sideLength) + 1 + row;
-}
-
 function createCells() 
 {
     var i, j;
     for (i = 0; i < size; i++) {
         cells[i] = [];
         for (j = 0; j < size; j++) 
-            cells[i][j] = new createCell(i, j);
+            cells[i][j] = {"value": 0, "x": j * sideLength, "y": i * sideLength};
     }
 }
 
 function drawCell(cell) 
 {
     context.beginPath();
-    context.rect(cell.x, cell.y, sideLength, sideLength);
+    context.rect(cell.x + oneSquarePadding, cell.y + oneSquarePadding, 
+        sideLength - 2 * oneSquarePadding, sideLength - 2 * oneSquarePadding);
     switch (cell.value) {
         case 0:
             context.fillStyle = '#A9A9A9';
             break;
         case 2:
-            context.fillStyle = '#FFD97D';
+            context.fillStyle = '#DEB887';  //BurlyWood
             break;
         case 4:
-            context.fillStyle = '#FFB812';
+            context.fillStyle = '#EEC743';  // (BurlyWood+Gold)/2
             break;
         case 8:
-            context.fillStyle = '#EA662A';
+            context.fillStyle = '#FFD800';  //Gold
             break;
         case 16:
-            context.fillStyle = '#EA362A';
+            context.fillStyle = '#FFA500';  //Orange
             break;
         case 32:
-            context.fillStyle = '#B31C12';
+            context.fillStyle = '#FF4500';  //OrangeRed
             break;
         case 64:
-            context.fillStyle = '#74120C';
+            context.fillStyle = '#B22222';  //FireBrick
             break;
         case 128:
-            context.fillStyle = '#57181B';
+            context.fillStyle = '#32CD32';  //LimeGreen
             break;
         case 256:
-            context.fillStyle = '#391012';
+            context.fillStyle = '#008000';  //Green
             break;
         case 512:
-            context.fillStyle = '#280B0D';
+            context.fillStyle = '#1E90FF';  //DodgerBlue
             break;
         case 1024:
-            context.fillStyle = '#0B0303';
+            context.fillStyle = '#191970';  //MidnightBlue
             break;
-        case 2048:
-            context.fillStyle = '#0B0303';
+        default:  // 2048 and more
+            context.fillStyle = '#4B0082';  //Indigo
             break;
-        default:
-            context.fillStyle = '#A9A9A9';
     }
     context.fill();
     if (cell.value) {
-        fontSize = sideLength / 2;
-        context.font = fontSize + 'px Arial';
-        context.fillStyle = 'white';
-        if (cell.value == 2048) context.fillStyle = 'gold';
-        context.textAlign = 'center';
-        context.fillText(cell.value, cell.x + sideLength / 2, cell.y + sideLength / 2 + sideLength / 7);
+        // Font size:
+        numberWidth = cell.value.toString().length;
+        if (numberWidth <= 3) context.font = (sideLength / 2.5) + 'px Arial';
+        else context.font = (sideLength / (numberWidth - 1)) + 'px Arial';
+        // Font color:
+        if (cell.value >= 2048) context.fillStyle = 'gold';
+        else context.fillStyle = 'white';
+        // Centering horizontally and vertically:
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        // Drawing number in square:
+        context.fillText(cell.value, cell.x + sideLength / 2, cell.y + sideLength / 2);
     }
 }
 
 function drawAllCells() 
 {
+    // Background:
+    context.beginPath();
+    context.rect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = "#110D0D";
+    context.fill();
+
+    // Tiles:
     var i, j;
     for (i = 0; i < size; i++)
         for (j = 0; j < size; j++)
@@ -334,7 +340,7 @@ function pasteNewCell()
             break;
         }
     }
-    if (isGameOver() || isGameWon()) finishGame();
+    if (isGameOver()) finishGame();
 }
 
 
@@ -350,15 +356,6 @@ function isGameOver()
              || j < (size - 1) && cells[i][j].value === cells[i][j + 1].value 
              || cells[i][j].value === 0) return false;
 	return true;
-}
-
-function isGameWon() 
-{ 
-	var i, j;
-	for(i = 0; i < size; i++)
-		for(j = 0; j < size; j++)
-			if(cells[i][j].value === 2048) return true;
-	return false;
 }
 
 
