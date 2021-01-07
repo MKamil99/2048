@@ -3,7 +3,6 @@
 Projekt zaliczeniowy z przedmiotu Mobilne Aplikacje Webowe */
 
 /* GENERAL */
-@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
 html, body /* prevents scrolling */
 {
     height: 100%;
@@ -33,6 +32,7 @@ button
 
     background-color: #110D0D;
     color: #E6BE30;
+    font-family: "Montserrat", sans-serif;
 }
 button:focus { outline: none; }
 
@@ -66,16 +66,15 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
 {
     width: 70vw; 
     height: 10vh; 
-    border-radius: 2vh;
     transition: all 0.5s;
 }
 @media (orientation: portrait) 
 {
-    #menu button { font-size: 7vw; margin: 1vw; }
+    #menu button { font-size: 7vw; margin: 1vw; border-radius: 2vw; }
 }
 @media (orientation: landscape) 
 {
-    #menu button { font-size: 7vh; margin: 1vh; }
+    #menu button { font-size: 7vh; margin: 1vh; border-radius: 1.5vh; }
 }
 
 
@@ -110,6 +109,7 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
     align-items: center;
     justify-content: center;
 }
+#setupSaveButton { border-radius: 0.5em; }
 @media (orientation: portrait)
 {
     #nick-section p, #size-section p 
@@ -134,7 +134,7 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
     }
     #setupSaveButton
     { 
-        font-size: 4vh; 
+        font-size: 3vh; 
         height: 5vh; 
         width: fit-content; 
         padding: 2vh;
@@ -193,6 +193,7 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
     height: calc(100% - 6px); 
     margin: 0;
 }
+#buttons-section button { border-radius: 0.5em; }
 @media (orientation: portrait)
 {
     #play { flex-direction: column; }
@@ -219,7 +220,7 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
 @media (orientation: landscape) 
 {
     #play { justify-content: space-around; }
-    #info { width: fit-content; height: 80%;  }
+    #info { width: calc(100vw - 100vh); height: 80%;  }
     #buttons-section
     {
         display: flex;
@@ -243,21 +244,23 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
 /* GAME OVER */
 #gameover 
 { 
+    font-family: "SegoeUI", sans-serif;
     position: absolute; 
-    top: 0; 
-    left: 0; 
     text-align: center;
+    width: 80%;
+    left: 10%;
+    top: 0; 
+
+    flex-direction: column;
     display: none;
 }
 #gameover h2 { -webkit-text-stroke: 0.02em black; }
 #result 
-{ 
-    position: absolute; 
+{  
     color:  azure; 
     -webkit-text-stroke: 0.02em #110D0D; 
-    top: 50%; 
-    bottom: 50%;
-    width: 80%;
+    width: 100%;
+    margin: 0;
 }
 #retryButton
 { 
@@ -266,6 +269,7 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
     bottom: 1vh; 
     width: fit-content; 
     height: fit-content;
+    border-radius: 0.5em;
 }
 @media (orientation: portrait)
 {
@@ -294,19 +298,18 @@ h4, h6 { color: #A9A9A9; text-align: justify; margin: 0; }
 img 
 {
     display: block;
-    border-radius: 10vh;
     margin-left: auto; margin-right: auto;
 }
 #rules-instruction, #rules-credits { padding-left: 1.5%; padding-right: 1.5%; }
 @media (orientation: portrait) 
 {
     #rules { flex-direction: column; }
-    img { padding: 2vw; width: 80%; }
+    img { padding: 2vw; width: 80%; border-radius: 10vw; }
 }
 @media (orientation: landscape) 
 {
     #rules-instruction, #rules-credits { width: 50%; }
-    img { padding: 2vh; width: 80%; }
+    img { padding: 2vh; width: 80%; border-radius: 10vh; }
 }
 
 
