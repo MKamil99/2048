@@ -3,6 +3,7 @@
 Projekt zaliczeniowy z przedmiotu Mobilne Aplikacje Webowe */
 
 /* GENERAL */
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
 html, body /* prevents scrolling */
 {
     height: 100%;
