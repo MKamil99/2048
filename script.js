@@ -17,6 +17,10 @@ document.getElementById("settingsButton").setAttribute("onclick",   "javascript:
 document.getElementById("surrenderButton").setAttribute("onclick",  "javascript: finishGame()");
 document.getElementById("retryButton").setAttribute("onclick",      "javascript: playAgain()");
 
+// Listening keypress by nick-input - hiding keyboard:
+document.getElementById("nick-value").addEventListener("keypress", 
+    function(e) { if (e.which == 13) { e.preventDefault(); document.activeElement.blur(); } });
+
 // Animation: 
 var animFramesLeft = 0;
 const animFramesTotal = 5;
@@ -124,13 +128,14 @@ function drawAllCells()
                     newY = newRow + ((oldRow - newRow) / animFramesTotal * animFramesLeft); 
                 else                  // down
                     newY = newRow - ((newRow - oldRow) / animFramesTotal * animFramesLeft);
+                drawCell({value: 0, x: oldCol, y: oldRow});
                 drawCell({value: tileValue, x: newX, y: newY});
             }
     
             // Re-draw:
             animFramesLeft -= 1;
             drawAllCells();
-        }, 15);
+        }, 10);
     }
     else
     {
@@ -488,7 +493,7 @@ function buildAndSendJSON()
         {
             // responseObject is a number; if it is greater than 10, it means that you are out of the ranking
             const responseObject = this.responseText;
-            if (responseObject > 10) return;
+            if (responseObject > 10 || typeof responseObject != "string" || responseObject.length > 3) return;
             document.getElementById("result").innerHTML = `Zajmujesz ${parseInt(responseObject)}. miejsce w rankingu!`;
         }
     }; 
