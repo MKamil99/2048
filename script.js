@@ -494,9 +494,17 @@ function setNick() {
     document.getElementById("play").style.display = "flex";
     if (input.value !== null && input.value !== "") nick = input.value;
 
-    // Save nickname for further sessions:
-    if (nick != defaultNick) document.cookie = `username=${nick}`;
+    // Save nickname for further sessions (365 days):
+    if (nick != defaultNick) setCookie(nick, 365);
 }
+
+// Save cookie for further sessions (based on: https://www.w3schools.com/js/js_cookies.asp):
+function setCookie(nick, days) {
+    var d = new Date();
+    d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = "username=" + nick + ";" + expires + ";path=/";
+  }
 
 // Go from PLAY MODE to SETTINGS if player wants to change nick or board size:
 function returnToSettings() {
