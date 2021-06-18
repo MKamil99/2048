@@ -1,12 +1,10 @@
 # 2048
-**2048** is a project written for **Mobile Web Applications** course during 
-the 5th semester of Computer Science at the Silesian University of Technology.
-
 ### Table of contents
 * [Project description](#project-description)
 * [Used technologies](#used-technologies)
 * [How to install it?](#how-to-install-it)
 * [How to use it?](#how-to-use-it)
+* [Project status](#project-status)
 
 ### Project description
 **2048** is just another version of very popular puzzle game, originally created by Gabriele Cirulli in 2014, in which 
@@ -14,7 +12,8 @@ player needs to **move and merge the tiles** that show up on the board. Tiles ca
 and it results in creating a tile with value two times bigger than previous tiles' values. After every move new tile 
 is spawned on the board until there is no place for it - that's when player loses. Originally the aim was to reach 2048 
 tile, but in this case there is **no maximum value**. There are **3 play modes**. You can play on 4x4, 5x5 or 6x6 board
-and - if the game is located on the server - compete with others as there is **ranking system**.
+and - if the game is located on the server - compete with others as there is **ranking system**. Also, our version
+is available only only in **Polish**.
 
 ### Used technologies
 The application was created without any additional libraries or frameworks - it's just **pure HTML, CSS, JavaScript and PHP**.
@@ -70,3 +69,8 @@ The last view is **Ranking**. There you can find three lists of players with the
 <p align="center">
 <img src="https://user-images.githubusercontent.com/43967269/114004916-617f9b80-985f-11eb-990d-afa60ef3a8c0.png" alt="Ranking">
 </p>
+
+### Project status
+The **main goal** of this project was to learn how to create mobile web application (without any frameworks) and it **has been reached**. 
+Probably, it would be better if the game was hosted on GitHub Pages, but due to the use of vanilla JavaScript and PHP, this is not possible. 
+In this case, the project can be considered as **finished**. 

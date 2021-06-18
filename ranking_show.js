@@ -1,7 +1,3 @@
-//                        2048
-//      Limanówka Dominika, Matula Kamil, Różycki Iwo
-// Projekt zaliczeniowy z przedmiotu Mobilne Aplikacje Webowe
-
 // References to HTML elements:
 var sizeNumber = document.getElementById("ranking-size-value"); 
 var rankingListDiv = document.getElementById("ranking-list");
@@ -15,37 +11,27 @@ var rankingList = null;
 readFile();
 
 
-
-
 // Reaction for clicking -/+ buttons:
-function reduceSize() 
-{ 
-    if (parseInt(sizeNumber.innerHTML) > 4) 
-    {
+function reduceSize() { 
+    if (parseInt(sizeNumber.innerHTML) > 4) {
         document.getElementById("ranking-size-value").innerHTML = parseInt(sizeNumber.innerHTML) - 1;
         buildRanking();
     }
 }
-function extendSize()
-{ 
-    if (parseInt(sizeNumber.innerHTML) < 6) 
-    {
+function extendSize() { 
+    if (parseInt(sizeNumber.innerHTML) < 6) {
         document.getElementById("ranking-size-value").innerHTML = parseInt(sizeNumber.innerHTML) + 1;
         buildRanking();
     }
 }
 
 
-
-
 // Reading ranking from .json file by using PHP:
-function readFile()
-{
+function readFile() {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "ranking_show.php", true);
     xhr.onreadystatechange = function () { 
-        if (xhr.readyState === 4 && xhr.status === 200)
-        {
+        if (xhr.readyState === 4 && xhr.status === 200) {
             rankingList = JSON.parse(this.responseText);
             buildRanking();
         }
@@ -54,12 +40,10 @@ function readFile()
 }
 
 // Building ranking list and displaying it in HTML:
-function buildRanking()
-{
+function buildRanking() {
     let keyName = "size" + sizeNumber.innerHTML;
     rankingListDiv.innerHTML = "";
-    for (let i = 0; i < rankingList[keyName].length; i++)
-    {
+    for (let i = 0; i < rankingList[keyName].length; i++) {
         let record = document.createElement("div");
 
         let nickText = document.createElement("p");

@@ -15,7 +15,7 @@ $submitSize = $submit->size;
 $accurateRanking = $fileContent[$submitSize];
 
 // Pushing submit to ranking, sorting it and reducing to top 10 (usort example comes from: 
-// https://stackoverflow.com/questions/4282413/sort-array-of-objects-by-object-fields)
+// https://stackoverflow.com/questions/4282413/sort-array-of-objects-by-object-fields):
 $submitName = $submit->nick;
 $submitScore = $submit->score;
 $newRecord = array("nick"=>$submitName, "score"=>$submitScore);
@@ -29,7 +29,7 @@ $tmp = array_slice($accurateRanking, 0, 10, true);
 $fileContent[$submitSize] = $tmp;
 file_put_contents("data.json", json_encode($fileContent));
 
-// Searching for answer where player is on the list
+// Searching for answer where player is on the list:
 for($i = 0; $i < count($accurateRanking); $i++)
     if ($accurateRanking[$i] == $newRecord) break;
 print_r($i + 1);

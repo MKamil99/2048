@@ -1,7 +1,3 @@
-//                        2048
-//      Limanówka Dominika, Matula Kamil, Różycki Iwo
-// Projekt zaliczeniowy z przedmiotu Mobilne Aplikacje Webowe
-
 // References to HTML elements:
 var canvas = document.getElementById('canvas');
 var score = document.getElementById('score-value');
@@ -21,6 +17,21 @@ document.getElementById("retryButton").setAttribute("onclick",      "javascript:
 document.getElementById("nick-value").addEventListener("keypress", 
     function(e) { if (e.which == 13) { e.preventDefault(); document.activeElement.blur(); } });
 
+// Reading data from cookie:
+let username = "";
+let cookieElements = document.cookie.split(';');
+for (i = 0; i < cookieElements.length; i++) {
+    if (cookieElements[i].includes("username")) {
+        username = cookieElements[i].split("=")[1];
+        break;
+    }
+}
+
+// Setting username:
+const defaultNick = "Nieznany";
+var nick = defaultNick;
+if (username.length !== 0) nick = username;
+
 // Animation: 
 var animFramesLeft = 0;
 const animFramesTotal = 5;
@@ -33,17 +44,13 @@ var fontSize = null;
 var cells = [];
 var oldBoard = [];
 var animation = [];
-var nick = "Nieznany";
 var points = 0;
 var gameover = false;
 startGame();
 
 
-
-
 // New Game:
-function startGame() 
-{
+function startGame() {
     // Resetting attributes:
     canvasClean();
     resetScore();
@@ -59,8 +66,7 @@ function startGame()
 }
 
 // Finish Game:
-function finishGame()
-{
+function finishGame() {
     document.getElementById("play").style.filter = "blur(0.5em)";
     document.getElementById("gameover").style.display = "flex";
     gameover = true;
@@ -68,16 +74,14 @@ function finishGame()
 }
 
 // Play Again:
-function playAgain()
-{
+function playAgain() {
     document.getElementById("play").style.filter = "none";
     document.getElementById("gameover").style.display = "none";
     startGame();
 }
 
 // Resetting score:
-function resetScore()
-{
+function resetScore() {
 	points = 0;
 	document.getElementById('score-value').innerHTML = "WYNIK: " + points;
 }
@@ -86,8 +90,7 @@ function resetScore()
 function canvasClean() { context.clearRect(0, 0, canvas.height, canvas.height); }
 
 // Building board:
-function createCells() 
-{
+function createCells() {
     for (let i = 0; i < size; i++) {
         cells[i] = [];
         for (let j = 0; j < size; j++) 
@@ -96,14 +99,10 @@ function createCells()
 }
 
 
-
-
 // Drawing and animating 
 // (based on https://github.com/mendelsimon/Coding-Train/blob/master/2048/board.js):
-function drawAllCells() 
-{
-    if (animFramesLeft > 0)
-    {
+function drawAllCells() {
+    if (animFramesLeft > 0) {
         setTimeout(function() {
             // Background:
             context.beginPath();
@@ -117,8 +116,7 @@ function drawAllCells()
                     drawCell(oldBoard[i][j]);
 
             // Animating tiles:
-            for (let [tileValue, oldCol, newCol, oldRow, newRow] of animation) 
-            {
+            for (let [tileValue, oldCol, newCol, oldRow, newRow] of animation) {
                 let newX, newY;
                 if (newCol <= oldCol) // left
                     newX = newCol + ((oldCol - newCol) / animFramesTotal * animFramesLeft);
@@ -136,9 +134,7 @@ function drawAllCells()
             animFramesLeft -= 1;
             drawAllCells();
         }, 10);
-    }
-    else
-    {
+    } else {
         // Background:
         context.beginPath();
         context.rect(0, 0, canvas.width, canvas.height);
@@ -155,13 +151,11 @@ function drawAllCells()
     }
 }
 
-function drawCell(cell) 
-{
+function drawCell(cell) {
     context.beginPath();
     context.rect(cell.x + oneSquarePadding, cell.y + oneSquarePadding, 
         sideLength - 2 * oneSquarePadding, sideLength - 2 * oneSquarePadding);
-    switch (cell.value) 
-    {
+    switch (cell.value) {
         case 0:    context.fillStyle = '#A9A9A9'; break;
         case 2:    context.fillStyle = '#DEB887'; break; // BurlyWood   
         case 4:    context.fillStyle = '#EEC743'; break; // (BurlyWood+Gold)/2    
@@ -176,8 +170,7 @@ function drawCell(cell)
         default:   context.fillStyle = '#4B0082'; break; // Indigo   
     }
     context.fill();
-    if (cell.value) 
-    {
+    if (cell.value) {
         // Font size:
         numberWidth = cell.value.toString().length;
         if (numberWidth <= 3) context.font = (sideLength / 2.5) + 'px Montserrat';
@@ -232,11 +225,9 @@ function calculateAnimation(value, constant, oldOne, newOne, direction) {
 }
 
 // Copying board for better displaying animations:
-function copyBoard() 
-{
+function copyBoard() {
     let newBoard = [];
-    for (let row = 0; row < size; row++) 
-    {
+    for (let row = 0; row < size; row++) {
         newBoard[row] = [];
         for (let column = 0; column < size; column++)
             newBoard[row][column] = { 
@@ -247,8 +238,6 @@ function copyBoard()
 }
 
 
-
-
 // Touching screen (https://stackoverflow.com/questions/2264072/detect-a-finger-swipe-through-javascript-on-the-iphone-and-android):
 document.addEventListener('touchstart', handleTouchStart, false);
 document.addEventListener('touchmove', handleTouchMove, false);
@@ -257,15 +246,13 @@ var yDown = null;
 
 function getTouches(evt) { return evt.touches || evt.originalEvent.touches; }
 
-function handleTouchStart(evt) 
-{
+function handleTouchStart(evt) {
     const firstTouch = getTouches(evt)[0];
     xDown = firstTouch.clientX;
     yDown = firstTouch.clientY;
 }
 
-function handleTouchMove(evt) 
-{
+function handleTouchMove(evt) {
     if (gameover) return;
     if (!xDown || !yDown) return;
 
@@ -293,8 +280,7 @@ function handleTouchMove(evt)
 
 
 // Moving tiles:
-function swipeRight() 
-{
+function swipeRight() {
     var i, j, newColumn, moved = false;
     for (i = 0; i < size; i++) {
         var arr = [];
@@ -303,7 +289,7 @@ function swipeRight()
                 let tileValue = cells[i][j].value;
                 newColumn = j;
                 while (newColumn + 1 < size) {
-                    if (cells[i][newColumn + 1].value == 0) {                                                   // go right
+                    if (cells[i][newColumn + 1].value == 0) {                                                             // go right
                         cells[i][newColumn + 1].value = cells[i][newColumn].value;
                         cells[i][newColumn].value = 0;
                         newColumn++;
@@ -316,21 +302,19 @@ function swipeRight()
                         newColumn++;
                         moved = true;
                         break;
-                    } else break;                                                                          // do nothing
+                    } else break;                                                                                         // do nothing
                 }
                 animation.push(calculateAnimation(tileValue, i, j, newColumn, "right"));
             }
         }
     }	
-    if (moved) 
-    {
+    if (moved) {
         animFramesLeft = animFramesTotal;
         pasteNewCell();
     }
 }
 
-function swipeLeft() 
-{
+function swipeLeft() {
     var i, j, newColumn, moved = false;
     for (i = 0; i < size; i++) {
         var arr = [];
@@ -339,12 +323,12 @@ function swipeLeft()
                 let tileValue = cells[i][j].value;
                 newColumn = j;
                 while (newColumn - 1 >= 0) {
-                    if (cells[i][newColumn - 1].value == 0) {                                                    // go left
+                    if (cells[i][newColumn - 1].value == 0) {                                                             // go left
                         cells[i][newColumn - 1].value = cells[i][newColumn].value;
                         cells[i][newColumn].value = 0;
                         newColumn--;
                         moved = true;
-                    } else if (cells[i][newColumn].value == cells[i][newColumn - 1].value && !arr.includes(newColumn)) {   // merge
+                    } else if (cells[i][newColumn].value == cells[i][newColumn - 1].value && !arr.includes(newColumn)) {  // merge
                         cells[i][newColumn - 1].value += cells[i][newColumn].value;
                         points += cells[i][newColumn - 1].value;
                         cells[i][newColumn].value = 0;
@@ -352,21 +336,19 @@ function swipeLeft()
                         newColumn--;
                         moved = true;
                         break;
-                    } else break;                                                                           // do nothing
+                    } else break;                                                                                         // do nothing
                 }
                 animation.push(calculateAnimation(tileValue, i, j, newColumn, "left"));
             }
         }
     } 	
-    if (moved) 
-    {
+    if (moved) {
         animFramesLeft = animFramesTotal;
         pasteNewCell();
     }
 }
 
-function swipeUp() 
-{
+function swipeUp() {
     var i, j, newRow, moved = false;
     for (j = 0; j < size; j++) {
         var arr = [];
@@ -375,12 +357,12 @@ function swipeUp()
                 let tileValue = cells[i][j].value;
                 newRow = i;
                 while (newRow > 0) {
-                    if (cells[newRow - 1][j].value == 0) {                                                // go up
+                    if (cells[newRow - 1][j].value == 0) {                                                                // go up
                         cells[newRow - 1][j].value = cells[newRow][j].value;
                         cells[newRow][j].value = 0;
                         newRow--;
                         moved = true;
-                    } else if (cells[newRow][j].value == cells[newRow - 1][j].value && !arr.includes(newRow)) { // merge
+                    } else if (cells[newRow][j].value == cells[newRow - 1][j].value && !arr.includes(newRow)) {           // merge
                         cells[newRow - 1][j].value += cells[newRow][j].value;
                         points += cells[newRow - 1][j].value;
                         cells[newRow][j].value = 0;
@@ -388,21 +370,19 @@ function swipeUp()
                         newRow--;
                         moved = true; 		
                         break;
-                    } else break;                                                                      // do nothing
+                    } else break;                                                                                         // do nothing
                 }
                 animation.push(calculateAnimation(tileValue, j, i, newRow, "up")); // col, oldRow, newRow
             }
         }
     }
-    if (moved) 
-    {
+    if (moved) {
         animFramesLeft = animFramesTotal;
         pasteNewCell();
     }
 }
 
-function swipeDown() 
-{
+function swipeDown() {
     var i, j, newRow, moved = false;
     for (j = 0; j < size; j++) {
         var arr = [];
@@ -411,12 +391,12 @@ function swipeDown()
                 let tileValue = cells[i][j].value;
                 newRow = i;
                 while (newRow + 1 < size) {
-                    if (!cells[newRow + 1][j].value) {                                                     // go down
+                    if (!cells[newRow + 1][j].value) {                                                                    // go down
                         cells[newRow + 1][j].value = cells[newRow][j].value;
                         cells[newRow][j].value = 0;
                         newRow++;
                         moved = true;
-                    } else if (cells[newRow][j].value === cells[newRow + 1][j].value && !arr.includes(newRow)) {	 // merge
+                    } else if (cells[newRow][j].value === cells[newRow + 1][j].value && !arr.includes(newRow)) {	      // merge
                         cells[newRow + 1][j].value += cells[newRow][j].value;
                         points += cells[newRow + 1][j].value;
                         cells[newRow][j].value = 0;
@@ -425,25 +405,21 @@ function swipeDown()
                         moved = true;
                         break;
                     } 
-                    else break;                                                                          // do nothing
+                    else break;                                                                                           // do nothing
                 }
                 animation.push(calculateAnimation(tileValue, j, i, newRow, "down")); // col, oldRow, newRow
             }
         }
     }
-    if (moved) 
-    {
+    if (moved) {
         animFramesLeft = animFramesTotal;
         pasteNewCell();
     }
 }
 
 
-
-
 // Adding new tiles:
-function pasteNewCell() 
-{
+function pasteNewCell() {
     while (true) {
         var row = Math.floor(Math.random() * size);
         var coll = Math.floor(Math.random() * size);
@@ -458,11 +434,8 @@ function pasteNewCell()
 }
 
 
-
-
 // Game conditions:
-function isGameOver() 
-{	
+function isGameOver() {	
 	var i, j;
 	for(i = 0; i < size; i++)
 		for(j = 0; j < size; j++)
@@ -473,11 +446,8 @@ function isGameOver()
 }
 
 
-
-
 // Check which place did player get:
-function buildAndSendJSON()
-{
+function buildAndSendJSON() {
     // Building JSON:
     let data = {};
     data["nick"] = nick;
@@ -501,22 +471,16 @@ function buildAndSendJSON()
 }
 
 
-
-
 // Reaction for buttons - changing size of the board:
-function lessCells() 
-{
-    if (size > 4) 
-    {
+function lessCells() {
+    if (size > 4) {
         document.getElementById('size-value').textContent = size - 1;
         size = parseInt(document.getElementById('size-value').textContent);
         startGame();
     }
 }
-function moreCells() 
-{
-    if (size < 6) 
-    {
+function moreCells() {
+    if (size < 6) {
         document.getElementById('size-value').textContent = size + 1;
         size = parseInt(document.getElementById('size-value').textContent);
         startGame();
@@ -524,17 +488,22 @@ function moreCells()
 }
 
 // Go from SETTINGS to PLAY MODE and set player's nick:
-function setNick()
-{
+function setNick() {
     let input = document.getElementById("nick-value");
     document.getElementById("setup").style.display = "none";
     document.getElementById("play").style.display = "flex";
     if (input.value !== null && input.value !== "") nick = input.value;
+
+    // Save nickname for further sessions:
+    if (nick != defaultNick) document.cookie = `username=${nick}`;
 }
 
 // Go from PLAY MODE to SETTINGS if player wants to change nick or board size:
-function returnToSettings()
-{
+function returnToSettings() {
+    // Display remembered nickname (from cookie):
+    if (nick != defaultNick) document.getElementById("nick-value").value = nick;
+
+    // Display appropriate screen:
     document.getElementById("setup").style.display = "flex";
     document.getElementById("play").style.display = "none";
 }
